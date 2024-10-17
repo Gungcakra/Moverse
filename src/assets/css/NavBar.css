@@ -1,0 +1,12 @@
+@font-face {
+    font-family: "Sans-Regular";
+    src: url(../fonts/OpenSans-Regular.ttf);
+}
+@font-face {
+    font-family: "Sans-SemiBold";
+    src: url(../fonts/OpenSans-SemiBold.ttf);
+}
+
+nav{
+    font-family: "Sans-SemiBold",sans-serif;
+}
