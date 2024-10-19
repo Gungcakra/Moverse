@@ -1,2 +1,21 @@
-.img-pm{
+.home-container{
+    background: rgb(2,0,36);
+    background: linear-gradient(30deg, rgba(2,0,36,1) 44%, rgba(5,5,129,1) 84%, rgba(1,92,109,1) 100%);
 }
+
+.img-pm{
+    margin-top: 1rem;
+}
+
+.card-container{
+    scrollbar-color: transparent transparent;
+}
+.card-container::-webkit-scrollbar {
+    display: none;
+  }
+.card-movie{
+    transition: 0.3s ease-in-out;
+    border-radius: 10px;
+
+}
+
