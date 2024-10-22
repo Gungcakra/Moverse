@@ -12,45 +12,61 @@ function Home() {
   const [dramaKorea, setDramaKorea] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // useEffect(() => {
+  //   const fetchPopularMovie = async () => {
+  //     try {
+  //       const cachedData = localStorage.getItem('popularMovies');
+  //       const cachedTime = localStorage.getItem('cacheTime');
+  //       const currentTime = new Date().getTime();
+  //       const cacheDuration = 1000 * 60 * 60; // Durasi cache (1 jam)
+  
+  //       // Jika ada data cache, tampilkan terlebih dahulu
+  //       if (cachedData) {
+  //         setPopularMovie(JSON.parse(cachedData));
+  //         setLoading(false);
+  //       }
+  
+  //       // Jika data cache sudah kadaluarsa atau tidak ada, fetch data baru
+  //       if (!cachedTime || currentTime - cachedTime >= cacheDuration) {
+  //         const response = await fetch('https://moverse-api.vercel.app/api/movie-popular');
+  //         if (!response.ok) {
+  //           throw new Error('Network response was not ok');
+  //         }
+  //         const result = await response.json();
+  
+  //         // Simpan hasil fetch ke cache
+  //         localStorage.setItem('popularMovies', JSON.stringify(result.data));
+  //         localStorage.setItem('cacheTime', currentTime.toString());
+  
+  //         // Update state dengan data terbaru
+  //         setPopularMovie(result.data);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching popular movies:', error);
+  //     }
+  //   };
+  
+  //   // Panggil fungsi fetch
+  //   fetchPopularMovie();
+  // }, []);
+  
   useEffect(() => {
     const fetchPopularMovie = async () => {
       try {
-        // Cek apakah data sudah ada di localStorage
-        const cachedData = localStorage.getItem('popularMovies');
-        const cachedTime = localStorage.getItem('cacheTime');
-        const currentTime = new Date().getTime();
-  
-        // Atur durasi cache yang diinginkan (misalnya 1 jam)
-        const cacheDuration = 1000 * 60 * 60; // 1 jam
-  
-        if (cachedData && cachedTime && currentTime - cachedTime < cacheDuration) {
-          // Jika data di cache masih valid, gunakan data dari cache
-          setPopularMovie(JSON.parse(cachedData));
-          setLoading(false);
-        } else {
-          // Fetch data baru jika tidak ada cache atau cache sudah kedaluwarsa
-          const response = await fetch('https://moverse-api.vercel.app/api/movie-popular');
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          const result = await response.json();
-          
-          // Simpan data baru di localStorage beserta timestamp-nya
-          localStorage.setItem('popularMovies', JSON.stringify(result.data));
-          localStorage.setItem('cacheTime', currentTime.toString());
-          
-          setPopularMovie(result.data);
+        const response = await fetch('https://moverse-api.vercel.app/api/movie-popular');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
         }
+        const result = await response.json();
+        setPopularMovie(result.data);
       } catch (error) {
         console.error('Error fetching popular movies:', error);
       } finally {
-        setLoading(false);
+        setLoading(false); 
       }
     };
-  
     fetchPopularMovie();
   }, []);
-  
 
   useEffect(() => {
     const fetchNewMovie = async () => {
@@ -121,52 +137,99 @@ function Home() {
 
         {/* HORROR MOVIE */}
         <div className="container mx-auto flex justify-center flex-col items-center">
-          <div className="container" style={{maxWidth:'95%'}}>
-          <h1 className="ml-5 text-white text-3xl font-medium">Movie <span style={{ color:'#65B5E7' }}>Horror</span></h1>
-          {loading ? (
-            <p className="text-center text-gray-500">Loading...</p>
-          ) : (
-            <div className="card-container flex overflow-x-auto space-x-4">
-              {movieHorror.map((pm, index) => (
-                <Link
-          to={`/detail/${pm.link.split('/')[3]}`}
-          className="flex flex-none bg-gray-900 card-movie shadow-lg items-center p-4 rounded-lg hover:shadow-gray-500 hover:bg-gray-800" 
-          key={index} 
-          style={{ width: '300px', height: '150px', margin: '10px' }}
-        >
-          <img
-            className="object-cover rounded-md"
-            style={{ width: '100px', height: '130px', marginRight: '5px' }}
-            src={pm.image}
-            alt={truncateTitle(pm.title, 15)}
-          />
-          <div className="flex-grow" style={{ height: '100%' }}>
-            <div className="font-bold text-base text-white">
-              {truncateTitle(pm.title, 15)}
+  <div className="container" style={{ maxWidth: '95%', minHeight:'200px' }}>
+    <h1 className="ml-5 text-white text-3xl font-medium">
+      Movie <span style={{ color: '#65B5E7' }}>Horror</span>
+    </h1>
+    {loading ? (
+      <div className="flex overflow-x-auto space-x-4">
+        {[1, 2, 3, 4].map((_, index) => (
+          <div
+            key={index}
+            className="flex flex-none bg-gray-900 shadow-lg items-center p-4 rounded-lg animate-pulse"
+            style={{ width: '300px', height: '150px', margin: '10px' }}
+          >
+            {/* Skeleton for Image */}
+            <div
+              className="bg-gray-700 rounded-md"
+              style={{ width: '100px', height: '130px', marginRight: '5px' }}
+            ></div>
+
+            {/* Skeleton for Text Content */}
+            <div className="flex-grow" style={{ height: '100%' }}>
+              <div className="w-3/4 h-5 bg-gray-700 rounded-md mb-2"></div>
+              <div className="w-1/2 h-5 bg-gray-700 rounded-md mb-2"></div>
+              <div className="w-1/2 h-5 bg-gray-700 rounded-md mb-2"></div>
+              <div className="w-1/3 h-5 bg-gray-700 rounded-md"></div>
             </div>
-            <p className="text-white text-base">
-              <FontAwesomeIcon icon={faStar} style={{ color: '#65B5E7' }} /> {pm.rating || '-'}
-            </p>
-            <p className="text-white text-base">
-              <FontAwesomeIcon icon={faClock} style={{ color: '#65B5E7' }} /> {pm.duration || '-'}
-            </p>
-            <p className="text-white text-base">
-              <FontAwesomeIcon icon={faCalendarAlt} style={{ color: '#65B5E7' }} /> {getTahun(pm.releaseDate) || '-'}
-            </p>
           </div>
-        </Link>
-              ))}
+        ))}
+      </div>
+    ) : (
+      <div className="card-container flex overflow-x-auto space-x-4">
+        {movieHorror.map((pm, index) => (
+          <Link
+            to={`/detail/${pm.link.split('/')[3]}`}
+            className="flex flex-none bg-gray-900 card-movie shadow-lg items-center p-4 rounded-lg hover:shadow-gray-500 hover:bg-gray-800"
+            key={index}
+            style={{ width: '300px', height: '150px', margin: '10px' }}
+          >
+            <img
+              className="object-cover rounded-md"
+              style={{ width: '100px', height: '130px', marginRight: '5px' }}
+              src={pm.image}
+              alt={truncateTitle(pm.title, 15)}
+            />
+            <div className="flex-grow" style={{ height: '100%' }}>
+              <div className="font-bold text-base text-white">
+                {truncateTitle(pm.title, 15)}
+              </div>
+              <p className="text-white text-base">
+                <FontAwesomeIcon icon={faStar} style={{ color: '#65B5E7' }} /> {pm.rating || '-'}
+              </p>
+              <p className="text-white text-base">
+                <FontAwesomeIcon icon={faClock} style={{ color: '#65B5E7' }} /> {pm.duration || '-'}
+              </p>
+              <p className="text-white text-base">
+                <FontAwesomeIcon icon={faCalendarAlt} style={{ color: '#65B5E7' }} /> {getTahun(pm.releaseDate) || '-'}
+              </p>
             </div>
-          )}
-          </div>
-        </div>
+          </Link>
+        ))}
+      </div>
+    )}
+  </div>
+</div>
+
 
         {/* NEW MOVIE */}
         <div className="container mx-auto flex justify-center flex-col items-center">
-          <div className="container" style={{maxWidth:'95%'}}>
+          <div className="container" style={{maxWidth:'95%', minHeight:'200px'}}>
           <h1 className="ml-5 text-white text-3xl font-medium">Movie <span style={{ color:'#65B5E7' }}>Baru</span></h1>
           {loading ? (
-            <p className="text-center text-gray-500">Loading...</p>
+            <div className="flex overflow-x-auto space-x-4">
+        {[1, 2, 3, 4].map((_, index) => (
+          <div
+            key={index}
+            className="flex flex-none bg-gray-900 shadow-lg items-center p-4 rounded-lg animate-pulse"
+            style={{ width: '300px', height: '150px', margin: '10px' }}
+          >
+            {/* Skeleton for Image */}
+            <div
+              className="bg-gray-700 rounded-md"
+              style={{ width: '100px', height: '130px', marginRight: '5px' }}
+            ></div>
+
+            {/* Skeleton for Text Content */}
+            <div className="flex-grow" style={{ height: '100%' }}>
+              <div className="w-3/4 h-5 bg-gray-700 rounded-md mb-2"></div>
+              <div className="w-1/2 h-5 bg-gray-700 rounded-md mb-2"></div>
+              <div className="w-1/2 h-5 bg-gray-700 rounded-md mb-2"></div>
+              <div className="w-1/3 h-5 bg-gray-700 rounded-md"></div>
+            </div>
+          </div>
+        ))}
+      </div>
           ) : (
             <div className="card-container flex overflow-x-auto space-x-4">
               {newMovie.map((pm, index) => (
@@ -208,12 +271,34 @@ function Home() {
           <div className="container" style={{maxWidth:'95%'}}>
           <h1 className="ml-5 text-white text-3xl font-medium">Drama <span style={{ color:'#65B5E7' }}>Korea</span></h1>
           {loading ? (
-            <p className="text-center text-gray-500">Loading...</p>
+            <div className="flex overflow-x-auto space-x-4">
+        {[1, 2, 3, 4].map((_, index) => (
+          <div
+            key={index}
+            className="flex flex-none bg-gray-900 shadow-lg items-center p-4 rounded-lg animate-pulse"
+            style={{ width: '300px', height: '150px', margin: '10px' }}
+          >
+            {/* Skeleton for Image */}
+            <div
+              className="bg-gray-700 rounded-md"
+              style={{ width: '100px', height: '130px', marginRight: '5px' }}
+            ></div>
+
+            {/* Skeleton for Text Content */}
+            <div className="flex-grow" style={{ height: '100%' }}>
+              <div className="w-3/4 h-5 bg-gray-700 rounded-md mb-2"></div>
+              <div className="w-1/2 h-5 bg-gray-700 rounded-md mb-2"></div>
+              <div className="w-1/2 h-5 bg-gray-700 rounded-md mb-2"></div>
+              <div className="w-1/3 h-5 bg-gray-700 rounded-md"></div>
+            </div>
+          </div>
+        ))}
+      </div>
           ) : (
             <div className="card-container flex overflow-x-auto space-x-4">
               {dramaKorea.map((pm, index) => (
                 <Link
-          to={`/detail/${pm.link.split('/')[3]}`}
+          to={`/detail/${pm.link.split('/')[4]}`}
           className="flex flex-none bg-gray-900 card-movie shadow-lg items-center p-4 rounded-lg hover:shadow-gray-500 hover:bg-gray-800" 
           key={index} 
           style={{ width: '300px', height: '150px', margin: '10px' }}
