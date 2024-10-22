@@ -1,0 +1,4 @@
+.detail-container{
+    background: rgb(2,0,36);
+    background: linear-gradient(30deg, rgba(2,0,36,1) 44%, rgba(5,5,129,1) 84%, rgba(1,92,109,1) 100%);
+}

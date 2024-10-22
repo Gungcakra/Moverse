@@ -9,6 +9,7 @@ export default defineConfig({
       '/api': {
         target: 'https://moverse-api.vercel.app',
         changeOrigin: true,
+        secure: false,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },

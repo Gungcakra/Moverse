@@ -15,20 +15,42 @@ function Home() {
   useEffect(() => {
     const fetchPopularMovie = async () => {
       try {
-        const response = await fetch('https://moverse-api.vercel.app/api/movie-popular');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
+        // Cek apakah data sudah ada di localStorage
+        const cachedData = localStorage.getItem('popularMovies');
+        const cachedTime = localStorage.getItem('cacheTime');
+        const currentTime = new Date().getTime();
+  
+        // Atur durasi cache yang diinginkan (misalnya 1 jam)
+        const cacheDuration = 1000 * 60 * 60; // 1 jam
+  
+        if (cachedData && cachedTime && currentTime - cachedTime < cacheDuration) {
+          // Jika data di cache masih valid, gunakan data dari cache
+          setPopularMovie(JSON.parse(cachedData));
+          setLoading(false);
+        } else {
+          // Fetch data baru jika tidak ada cache atau cache sudah kedaluwarsa
+          const response = await fetch('https://moverse-api.vercel.app/api/movie-popular');
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const result = await response.json();
+          
+          // Simpan data baru di localStorage beserta timestamp-nya
+          localStorage.setItem('popularMovies', JSON.stringify(result.data));
+          localStorage.setItem('cacheTime', currentTime.toString());
+          
+          setPopularMovie(result.data);
         }
-        const result = await response.json();
-        setPopularMovie(result.data);
       } catch (error) {
         console.error('Error fetching popular movies:', error);
       } finally {
         setLoading(false);
       }
     };
+  
     fetchPopularMovie();
   }, []);
+  
 
   useEffect(() => {
     const fetchNewMovie = async () => {
@@ -107,7 +129,7 @@ function Home() {
             <div className="card-container flex overflow-x-auto space-x-4">
               {movieHorror.map((pm, index) => (
                 <Link
-          to={`/movie/${pm.link.split('/')[3]}`}
+          to={`/detail/${pm.link.split('/')[3]}`}
           className="flex flex-none bg-gray-900 card-movie shadow-lg items-center p-4 rounded-lg hover:shadow-gray-500 hover:bg-gray-800" 
           key={index} 
           style={{ width: '300px', height: '150px', margin: '10px' }}
@@ -149,7 +171,7 @@ function Home() {
             <div className="card-container flex overflow-x-auto space-x-4">
               {newMovie.map((pm, index) => (
                 <Link
-          to={`/movie/${pm.link.split('/')[3]}`}
+          to={`/detail/${pm.link.split('/')[3]}`}
           className="flex flex-none bg-gray-900 card-movie shadow-lg items-center p-4 rounded-lg hover:shadow-gray-500 hover:bg-gray-800" 
           key={index} 
           style={{ width: '300px', height: '150px', margin: '10px' }}
@@ -191,7 +213,7 @@ function Home() {
             <div className="card-container flex overflow-x-auto space-x-4">
               {dramaKorea.map((pm, index) => (
                 <Link
-          to={`/movie/${pm.link.split('/')[3]}`}
+          to={`/detail/${pm.link.split('/')[3]}`}
           className="flex flex-none bg-gray-900 card-movie shadow-lg items-center p-4 rounded-lg hover:shadow-gray-500 hover:bg-gray-800" 
           key={index} 
           style={{ width: '300px', height: '150px', margin: '10px' }}
