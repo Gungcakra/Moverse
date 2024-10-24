@@ -35,14 +35,14 @@ export const MovieList = () => {
 
         <div className="movie-list-container container-fluid min-w-full flex justify-center flex-wrap">
           {loading ? (
-             Array.from({ length: 21 }).map((_, index) => {
+             Array.from({ length: 41}).map((_, index) => {
             const randomDelay = Math.random() * 0.5; 
             const randomDuration = Math.random() * 1 + 1; 
 
             return (
               <div
                 key={index}
-                className="card m-2 w-[10rem] h-[15rem] bg-gray-800 rounded-md overflow-hidden flex flex-col"
+                className="card m-2 mx-3 w-[10rem] h-[15rem] bg-gray-900 rounded-md overflow-hidden flex flex-col"
                 style={{
                   animation: `pulse ${randomDuration}s infinite`,
                   animationDelay: `${randomDelay}s`,
@@ -59,7 +59,7 @@ export const MovieList = () => {
             movieList.map((ml, index) => (
               <Link
                 key={index}
-                to={`/detail/${ml.link.split('/')[3]}`}
+                to={ml.link.includes('/tv') ? `/tv-detail/${ml.link.split('/')[3]}` : `/detail/${ml.link.split('/')[3]}`}
                 className="card m-2 w-[10rem] h-[15rem] bg-gray-900 rounded-md overflow-hidden flex flex-col hover:shadow-gray-500"
               >
                 <img
@@ -67,8 +67,8 @@ export const MovieList = () => {
                   alt={ml.title}
                   style={{ width: '100%', height: '200px', objectFit: 'cover' }}
                 />
-                <div className="card-title" style={{ padding: '5px', color: 'white' }}>
-                  <p className="text-white text-center">{judulSingkat(ml.title,15)}</p>
+                <div className="card-title">
+                  <p className="text-white text-center p-2">{judulSingkat(ml.title,15)}</p>
                 </div>
               </Link>
             ))

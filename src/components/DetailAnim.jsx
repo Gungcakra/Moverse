@@ -3,15 +3,15 @@ import "../assets/css/Detail.css"
 import { useParams } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt, faClock, faL, faStar } from '@fortawesome/free-solid-svg-icons';
-function Detail() {
-    const {movieId} = useParams();
+function DetailAnim() {
+    const {animId} = useParams();
     const [detail, setDetail] = useState(null)
     const [loading,setLoading] = useState(true);
     
     useEffect(() => {
        const fetchDetail = async () =>{
             try {
-                const response = await fetch(`https://moverse-api.vercel.app/api/movie-details/${movieId}`);
+                const response = await fetch(`https://moverse-api.vercel.app/api/anim-details/${animId}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                   }
@@ -25,7 +25,7 @@ function Detail() {
             }
           }
        fetchDetail();
-    },[movieId])
+    },[animId])
 
     const getTahun = (dateString) => {
         const date = new Date(dateString);
@@ -116,4 +116,4 @@ function Detail() {
   )
 }
 
-export default Detail
+export default DetailAnim

@@ -3,13 +3,14 @@
   import logoNav from "../assets/images/logoNav.png";
   import "../assets/css/NavBar.css";
   import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-  import { faCameraRetro, faFire, faHome, faStar, faTv, faVideoCamera } from '@fortawesome/free-solid-svg-icons';
+  import { faCameraRetro, faFire, faHome, faMasksTheater, faStar, faTv, faVideoCamera } from '@fortawesome/free-solid-svg-icons';
 
   const Navbar = () => {
 
     const location = useLocation();
 
     const isActive = location.pathname === '/' || location.pathname.startsWith('/detail');
+    const animActive = location.pathname.startsWith('/anim-detail');
 
     return (
       <nav className="p-4 h-screen w-45 bg-black shadow-md shadow-white fixed">
@@ -60,6 +61,15 @@
               }
             >
               <FontAwesomeIcon icon={faStar} /> &nbsp; <span className="pl-1">Top Rated</span>
+            </NavLink>
+
+            <NavLink 
+              to="/anim" 
+              className={({isActive}) => 
+                isActive ? "bg-[#008CFFFF] text-white p-2.5 rounded-full" : animActive ? "bg-[#008CFFFF] text-white p-2.5 rounded-full" : "text-[#008CFFFF] text-start p-2.5 transition-all rounded-full hover:bg-[#008CFFFF] hover:text-white text-base"
+              }
+            >
+              <FontAwesomeIcon icon={faMasksTheater} /> &nbsp; <span className="pl-1">Animation</span>
             </NavLink>
 
             <NavLink 
