@@ -127,19 +127,17 @@ function Home() {
     return date.getFullYear();
 };
 
-  const truncateTitle = (title, maxLength) => {
+  const judulSingkat = (title, maxLength) => {
     return title.length > maxLength ? title.substring(0, maxLength) + '...' : title;
   };
   return (
     <>
-      <div className="home-container h-auto w-full pb-3" style={{ minHeight:'100vh' }}>
-        <Navbar />
-
+      <div className="home-container h-auto w-full pb-3 pl-[10rem] bg-black p-4" style={{ minHeight:'100vh' }}>
         {/* HORROR MOVIE */}
         <div className="container mx-auto flex justify-center flex-col items-center">
   <div className="container" style={{ maxWidth: '95%', minHeight:'200px' }}>
     <h1 className="ml-5 text-white text-3xl font-medium">
-      Movie <span style={{ color: '#65B5E7' }}>Horror</span>
+      Movie <span style={{ color: '#008CFFFF' }}>Horror</span>
     </h1>
     {loading ? (
       <div className="flex overflow-x-auto space-x-4">
@@ -178,20 +176,20 @@ function Home() {
               className="object-cover rounded-md"
               style={{ width: '100px', height: '130px', marginRight: '5px' }}
               src={pm.image}
-              alt={truncateTitle(pm.title, 15)}
+              alt={judulSingkat(pm.title, 15)}
             />
             <div className="flex-grow" style={{ height: '100%' }}>
               <div className="font-bold text-base text-white">
-                {truncateTitle(pm.title, 15)}
+                {judulSingkat(pm.title, 15)}
               </div>
               <p className="text-white text-base">
-                <FontAwesomeIcon icon={faStar} style={{ color: '#65B5E7' }} /> {pm.rating || '-'}
+                <FontAwesomeIcon icon={faStar} style={{ color: '#068FFF' }} /> {pm.rating || '-'}
               </p>
               <p className="text-white text-base">
-                <FontAwesomeIcon icon={faClock} style={{ color: '#65B5E7' }} /> {pm.duration || '-'}
+                <FontAwesomeIcon icon={faClock} style={{ color: '#068FFF' }} /> {pm.duration || '-'}
               </p>
               <p className="text-white text-base">
-                <FontAwesomeIcon icon={faCalendarAlt} style={{ color: '#65B5E7' }} /> {getTahun(pm.releaseDate) || '-'}
+                <FontAwesomeIcon icon={faCalendarAlt} style={{ color: '#068FFF' }} /> {getTahun(pm.releaseDate) || '-'}
               </p>
             </div>
           </Link>
@@ -199,13 +197,13 @@ function Home() {
       </div>
     )}
   </div>
-</div>
+        </div>
 
 
         {/* NEW MOVIE */}
         <div className="container mx-auto flex justify-center flex-col items-center">
           <div className="container" style={{maxWidth:'95%', minHeight:'200px'}}>
-          <h1 className="ml-5 text-white text-3xl font-medium">Movie <span style={{ color:'#65B5E7' }}>Baru</span></h1>
+          <h1 className="ml-5 text-white text-3xl font-medium">Movie <span style={{ color:'#068FFF' }}>Baru</span></h1>
           {loading ? (
             <div className="flex overflow-x-auto space-x-4">
         {[1, 2, 3, 4].map((_, index) => (
@@ -243,20 +241,20 @@ function Home() {
             className="object-cover rounded-md"
             style={{ width: '100px', height: '130px', marginRight: '5px' }}
             src={pm.image}
-            alt={truncateTitle(pm.title, 15)}
+            alt={judulSingkat(pm.title, 15)}
           />
           <div className="flex-grow" style={{ height: '100%' }}>
             <div className="font-bold text-base text-white">
-              {truncateTitle(pm.title, 15)}
+              {judulSingkat(pm.title, 15)}
             </div>
             <p className="text-white text-base">
-              <FontAwesomeIcon icon={faStar} style={{ color: '#65B5E7' }} /> {pm.rating || '-'}
+              <FontAwesomeIcon icon={faStar} style={{ color: '#068FFF' }} /> {pm.rating || '-'}
             </p>
             <p className="text-white text-base">
-              <FontAwesomeIcon icon={faClock} style={{ color: '#65B5E7' }} /> {pm.duration || '-'}
+              <FontAwesomeIcon icon={faClock} style={{ color: '#068FFF' }} /> {pm.duration || '-'}
             </p>
             <p className="text-white text-base">
-              <FontAwesomeIcon icon={faCalendarAlt} style={{ color: '#65B5E7' }} /> {getTahun(pm.releaseDate) || '-'}
+              <FontAwesomeIcon icon={faCalendarAlt} style={{ color: '#068FFF' }} /> {getTahun(pm.releaseDate) || '-'}
             </p>
           </div>
         </Link>
@@ -269,7 +267,7 @@ function Home() {
         {/* DRAMA KOREA */}
         <div className="container mx-auto flex justify-center flex-col items-center">
           <div className="container" style={{maxWidth:'95%'}}>
-          <h1 className="ml-5 text-white text-3xl font-medium">Drama <span style={{ color:'#65B5E7' }}>Korea</span></h1>
+          <h1 className="ml-5 text-white text-3xl font-medium">Drama <span style={{ color:'#068FFF' }}>Korea</span></h1>
           {loading ? (
             <div className="flex overflow-x-auto space-x-4">
         {[1, 2, 3, 4].map((_, index) => (
@@ -307,20 +305,20 @@ function Home() {
             className="object-cover rounded-md"
             style={{ width: '100px', height: '130px', marginRight: '5px' }}
             src={pm.image}
-            alt={truncateTitle(pm.title, 15)}
+            alt={judulSingkat(pm.title, 15)}
           />
           <div className="flex-grow" style={{ height: '100%' }}>
             <div className="font-bold text-base text-white">
-              {truncateTitle(pm.title, 15)}
+              {judulSingkat(pm.title, 15)}
             </div>
             <p className="text-white text-base">
-              <FontAwesomeIcon icon={faStar} style={{ color: '#65B5E7' }} /> {pm.rating || '-'}
+              <FontAwesomeIcon icon={faStar} style={{ color: '#068FFF' }} /> {pm.rating || '-'}
             </p>
             <p className="text-white text-base">
-              <FontAwesomeIcon icon={faClock} style={{ color: '#65B5E7' }} /> {pm.duration || '-'}
+              <FontAwesomeIcon icon={faClock} style={{ color: '#068FFF' }} /> {pm.duration || '-'}
             </p>
             <p className="text-white text-base">
-              <FontAwesomeIcon icon={faCalendarAlt} style={{ color: '#65B5E7' }} /> {getTahun(pm.releaseDate) || '-'}
+              <FontAwesomeIcon icon={faCalendarAlt} style={{ color: '#068FFF' }} /> {getTahun(pm.releaseDate) || '-'}
             </p>
           </div>
         </Link>

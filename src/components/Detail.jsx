@@ -32,7 +32,7 @@ function Detail() {
         return date.getFullYear();
     };
   return (
-    <div className="detail-container container bg-black min-w-full flex items-center overflow-hidden" style={{ maxWidth:'100%' ,minHeight:'100vh' }}>
+    <div className="detail-container container pl-[10rem] bg-black min-w-full flex items-center overflow-hidden" style={{ maxWidth:'100%' ,minHeight:'100vh' }}>
     <div className="flex flex-none m-4" style={{ minWidth:'100%'}}>
     {
   loading ? (
@@ -71,7 +71,7 @@ function Detail() {
       <div className="w-3/4 h-6 bg-gray-700 rounded-md my-2"></div>
     </div>
   </div>
-</div>
+    </div>
 
   ) : (
           <div className="flex flex-col" style={{ minWidth:'100%' }}>

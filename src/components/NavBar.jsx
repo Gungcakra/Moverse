@@ -1,24 +1,79 @@
-// src/components/Navbar.js
-import React from 'react';
-import logoNav from "../assets/images/logoNav.png";
-import "../assets/css/NavBar.css"
-const Navbar = () => {
-  return (
-    <nav className="p-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="flex items-center space-x-2 pl-8 mx-8">
-          <img src={logoNav} alt="Logo" style={{ maxWidth: '50px' }} />
-          <a href="/" className="text-white text-2xl font-bold">MOVERSE</a>
-        </div>
+  import React from 'react';
+  import { NavLink, useLocation } from 'react-router-dom';
+  import logoNav from "../assets/images/logoNav.png";
+  import "../assets/css/NavBar.css";
+  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+  import { faCameraRetro, faFire, faHome, faStar, faTv, faVideoCamera } from '@fortawesome/free-solid-svg-icons';
 
-        <div className="space-x-12 pr-8 mr-8">
-          <a href="/" className="text-gray-300 hover:text-white">Home</a>
-          <a href="/about" className="text-gray-300 hover:text-white">About</a>
-          <a href="/movie" className="text-gray-300 hover:text-white">Movie</a>
-        </div>
-      </div>
-    </nav>
-  );
-};
+  const Navbar = () => {
 
-export default Navbar;
+    const location = useLocation();
+
+    const isActive = location.pathname === '/' || location.pathname.startsWith('/detail');
+
+    return (
+      <nav className="p-4 h-screen w-45 bg-black shadow-md shadow-white fixed">
+        <div className="container mx-auto flex flex-col items-center space-y-8">
+
+          {/* Logo Section */}
+          <div className="flex items-center space-x-2">
+            <img src={logoNav} alt="Logo" style={{ maxWidth: '50px' }} />
+            <a href="/" className="text-white text-xl font-bold">MOVERSE</a>
+          </div>
+
+          {/* Navigation Links */}
+          <div className="flex flex-col space-y-6 w-full">
+          <NavLink 
+          to="/" 
+          className={
+            isActive 
+              ? "bg-[#008CFFFF] text-white text-start p-2.5 transition-all rounded-full" 
+              : "text-[#008CFFFF] text-start p-2.5 transition-all rounded-full hover:bg-[#008CFFFF] hover:text-white"
+          }
+        >
+          <FontAwesomeIcon icon={faHome} /> &nbsp; <span className="pl-1">New </span>
+        </NavLink>
+            
+            <NavLink 
+              to="/movie-list" 
+              className={({isActive}) => 
+                isActive ? "bg-[#008CFFFF] text-white p-2.5 rounded-full" : "text-[#008CFFFF] text-start p-2.5 transition-all rounded-full hover:bg-[#008CFFFF] hover:text-white text-base"
+              }
+            >
+              <FontAwesomeIcon icon={faVideoCamera} /> &nbsp; <span className="pl-1">Movie List</span>
+
+            </NavLink>
+
+            <NavLink 
+              to="/trending" 
+              className={({isActive}) => 
+                isActive ? "bg-[#008CFFFF] text-white p-2.5 rounded-full" : "text-[#008CFFFF] text-start p-2.5 transition-all rounded-full hover:bg-[#008CFFFF] hover:text-white text-base"
+              }
+            >
+              <FontAwesomeIcon icon={faFire} /> &nbsp; <span className="pl-1">Trending</span>
+            </NavLink>
+
+            <NavLink 
+              to="/top" 
+              className={({isActive}) => 
+                isActive ? "bg-[#008CFFFF] text-white p-2.5 rounded-full" : "text-[#008CFFFF] text-start p-2.5 transition-all rounded-full hover:bg-[#008CFFFF] hover:text-white text-base"
+              }
+            >
+              <FontAwesomeIcon icon={faStar} /> &nbsp; <span className="pl-1">Top Rated</span>
+            </NavLink>
+
+            <NavLink 
+              to="/tv" 
+              className={({isActive}) => 
+                isActive ? "bg-[#008CFFFF] text-white p-2.5 rounded-full" : "text-[#008CFFFF] text-start p-2.5 transition-all rounded-full hover:bg-[#008CFFFF] hover:text-white text-base"
+              }
+            >
+              <FontAwesomeIcon icon={faTv} /> &nbsp; <span className="pl-1">Tv Show</span>
+            </NavLink>
+          </div>
+        </div>
+      </nav>
+    );
+  };
+
+  export default Navbar;

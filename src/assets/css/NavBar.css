@@ -9,4 +9,5 @@
 
 nav{
     font-family: "Sans-SemiBold",sans-serif;
+    z-index: 1;
 }
