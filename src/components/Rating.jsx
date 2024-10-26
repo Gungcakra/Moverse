@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 
-function Anim() {
-    const [movieList, setMovieList] = useState([]);
+function Rating() {
+    const [ratingMovie, setRatingMovie] = useState([]);
     const [loading, setLoading] = useState(true);
   
     useEffect(() => {
-      const fetchAnim = async () => {
+      const fetchRating = async () => {
         try {
-          const response = await fetch('https://moverse-api.vercel.app/api/movie-anim');
+          const response = await fetch('https://moverse-api.vercel.app/api/movie-rating');
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }
           const result = await response.json();
-          setMovieList(result);
+          setRatingMovie(result);
         } catch (error) {
           console.error('Error fetching movies:', error);
         } finally {
           setLoading(false); 
         }
       };
-      fetchAnim();
+      fetchRating();
     }, []);
   
     const judulSingkat = (title, maxLength) => {
@@ -30,7 +30,7 @@ function Anim() {
       <>
         <div className="container-fluid pl-[10rem] h-screen flex flex-col min-w-full items-center pb-3 bg-black " style={{ minHeight:'100vh',height:'max-content' }}>
           <h1 className="text-white text-4xl py-5  font-medium">
-            Animaton <span className="text-[#008CFFFF]">Movie</span>
+            Top Rated <span className="text-[#008CFFFF]">Movie</span>
           </h1>
   
           <div className="movie-list-container container-fluid min-w-full flex justify-center flex-wrap">
@@ -56,17 +56,27 @@ function Anim() {
               );
             })
             ) : (
-              movieList.map((ml, index) => (
+              ratingMovie.map((ml, index) => (
                 <Link
                   key={index}
                   to={ml.link.includes('/tv') ? `/tv-detail/${ml.link.split('/')[3]}` : `/anim-detail/${ml.link.split('/')[3]}`}
                   className="card m-2 w-[10rem] h-[15rem] bg-gray-900 rounded-md overflow-hidden flex flex-col hover:shadow-gray-500"
                 >
-                  <img
-                    src={ml.image}
-                    alt={ml.title}
-                    style={{ width: '100%', height: '200px', objectFit: 'cover' }}
-                  />
+                    {ml.image ? (
+                    <img
+                        src={ml.image}
+                        alt={ml.title}
+                        style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                    />
+                    ) : (
+                    <div
+                        style={{
+                        width: '100%',
+                        height: '200px',
+                        backgroundColor: 'black'
+                        }}
+                    ></div>
+                    )}
                   <div className="card-title">
                     <p className="text-white text-center p-2">{judulSingkat(ml.title,15)}</p>
                   </div>
@@ -79,4 +89,5 @@ function Anim() {
     );
 }
 
-export default Anim
+
+export default Rating

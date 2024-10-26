@@ -7,6 +7,7 @@ import { MovieList } from './components/MovieList';
 import Trending from './components/Trending';
 import Anim from './components/Anim';
 import DetailAnim from './components/DetailAnim';
+import Rating from './components/Rating';
 function App() {
   return (
       
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/movie-list" element={<MovieList />} />
           <Route path="/trending" element={<Trending />} />
+          <Route path="/rating" element={<Rating />} />
           <Route path="/anim" element={<Anim />} />
           <Route path="/detail/:movieId" element={<Detail />} />
           <Route path="/anim-detail/:animId" element={<DetailAnim />} />

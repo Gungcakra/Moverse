@@ -9,8 +9,8 @@
 
     const location = useLocation();
 
-    const isActive = location.pathname === '/' || location.pathname.startsWith('/detail');
-    const animActive = location.pathname.startsWith('/anim-detail');
+    // const isActive = location.pathname === '/' || location.pathname.startsWith('/detail');
+    // const animActive = location.pathname.startsWith('/anim-detail');
 
     return (
       <nav className="p-4 h-screen w-45 bg-black shadow-md shadow-white fixed">
@@ -26,13 +26,11 @@
           <div className="flex flex-col space-y-6 w-full">
           <NavLink 
           to="/" 
-          className={
-            isActive 
-              ? "bg-[#008CFFFF] text-white text-start p-2.5 transition-all rounded-full" 
-              : "text-[#008CFFFF] text-start p-2.5 transition-all rounded-full hover:bg-[#008CFFFF] hover:text-white"
-          }
+          className={({isActive}) => 
+                isActive ? "bg-[#008CFFFF] text-white p-2.5 rounded-full" : "text-[#008CFFFF] text-start p-2.5 transition-all rounded-full hover:bg-[#008CFFFF] hover:text-white text-base"
+              }
         >
-          <FontAwesomeIcon icon={faHome} /> &nbsp; <span className="pl-1">New </span>
+          <FontAwesomeIcon icon={faHome} /> &nbsp; <span className="pl-1">Home </span>
         </NavLink>
             
             <NavLink 
@@ -55,7 +53,7 @@
             </NavLink>
 
             <NavLink 
-              to="/top" 
+              to="/rating" 
               className={({isActive}) => 
                 isActive ? "bg-[#008CFFFF] text-white p-2.5 rounded-full" : "text-[#008CFFFF] text-start p-2.5 transition-all rounded-full hover:bg-[#008CFFFF] hover:text-white text-base"
               }
@@ -66,7 +64,7 @@
             <NavLink 
               to="/anim" 
               className={({isActive}) => 
-                isActive ? "bg-[#008CFFFF] text-white p-2.5 rounded-full" : animActive ? "bg-[#008CFFFF] text-white p-2.5 rounded-full" : "text-[#008CFFFF] text-start p-2.5 transition-all rounded-full hover:bg-[#008CFFFF] hover:text-white text-base"
+                 isActive ? "bg-[#008CFFFF] text-white p-2.5 rounded-full" : "text-[#008CFFFF] text-start p-2.5 transition-all rounded-full hover:bg-[#008CFFFF] hover:text-white text-base"
               }
             >
               <FontAwesomeIcon icon={faMasksTheater} /> &nbsp; <span className="pl-1">Animation</span>
