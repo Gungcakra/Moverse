@@ -59,7 +59,7 @@ function Trending() {
               movieList.map((ml, index) => (
                 <Link
                   key={index}
-                  to={ml.link.includes('/tv') ? `/tv-detail/${ml.link.split('/')[3]}` : `/detail/${ml.link.split('/')[3]}`}
+                  to={ml.link.includes('/tv') ? `/tv-detail/${ml.link.split('/')[3]}` : `/anim-detail/${ml.link.split('/')[3]}`}
                   className="card m-2 w-[10rem] h-[15rem] bg-gray-900 rounded-md overflow-hidden flex flex-col hover:shadow-gray-500"
                 >
                   <img
