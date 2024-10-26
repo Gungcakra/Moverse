@@ -8,6 +8,7 @@ import Trending from './components/Trending';
 import Anim from './components/Anim';
 import DetailAnim from './components/DetailAnim';
 import Rating from './components/Rating';
+import Footer from './components/Footer';
 function App() {
   return (
       
@@ -24,6 +25,7 @@ function App() {
           <Route path="/anim-detail/:animId" element={<DetailAnim />} />
         </Routes>
     </div>
+        <Footer/>
   </Router>
   );
 }
